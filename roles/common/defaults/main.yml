@@ -1,0 +1,16 @@
+---
+common_locale: "en_US.UTF-8"
+common_timezone: "Europe/Amsterdam"
+common_ssh_authorized_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP2Xsyb0uhzxy/jphniTU0YtazWFgzGAMXFLSWC2saSF cees@griend.dev"
+common_admin_user: "cees"
+
+common_packages:
+  - git 
+  - gnupg2
+  - sudo
+  - tmux
+  - vim-nox
+
+  - python3
+  - python3-pip
+  - python3-virtualenv

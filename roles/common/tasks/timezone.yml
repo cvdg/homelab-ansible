@@ -1,0 +1,5 @@
+---
+- name: timezone set
+  community.general.timezone:
+    name: "{{ common_timezone }}"
+    hwclock: UTC

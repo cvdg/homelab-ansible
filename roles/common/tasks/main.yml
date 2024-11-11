@@ -1,0 +1,9 @@
+---
+- include_tasks: packages.yml
+
+- include_tasks: adm.yml
+- include_tasks: authorized_key.yml
+- include_tasks: console.yml
+- include_tasks: locale.yml
+- include_tasks: sudo.yml
+- include_tasks: timezone.yml

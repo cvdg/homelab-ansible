@@ -1,0 +1,18 @@
+---
+- name: locale generate
+  ansible.builtin.locale_gen:
+    name: "{{ common_locale }}"
+    state: present
+
+- name: locale get current
+  ansible.builtin.command: localectl status
+  register: locale_status
+  changed_when: false
+
+- name: parse 'LANG' from current locale
+  ansible.builtin.set_fact:
+    locale_lang: "{{ locale_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
+
+- name: locale set default
+  ansible.builtin.command: localectl set-locale "{{ common_locale }}"
+  changed_when: locale_lang != common_locale

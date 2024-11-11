@@ -1,0 +1,4 @@
+---
+- name: packages install
+  ansible.builtin.package:
+    name: "{{ common_packages }}"

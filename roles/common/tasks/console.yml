@@ -1,0 +1,21 @@
+---
+- name: /etc/default/console-setup CODESET
+  ansible.builtin.lineinfile:
+    path: /etc/default/console-setup
+    regexp: '^CODESET='
+    line: 'CODESET="Lat15"'
+  when: ansible_virtualization_type != 'kvm'
+  
+- name: /etc/default/console-setup FONTFACE
+  ansible.builtin.lineinfile:
+    path: /etc/default/console-setup
+    regexp: '^FONTFACE='
+    line: 'FONTFACE="Terminus"'
+  when: ansible_virtualization_type != 'kvm'
+
+- name: /etc/default/console-setup FONTSIZE
+  ansible.builtin.lineinfile:
+    path: /etc/default/console-setup
+    regexp: '^FONTSIZE='
+    line: 'FONTSIZE="16x32"'
+  when: ansible_virtualization_type != 'kvm'
