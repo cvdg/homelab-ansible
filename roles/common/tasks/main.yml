@@ -5,6 +5,6 @@
 - include_tasks: authorized_key.yml
 - include_tasks: console.yml
 - include_tasks: locale.yml
-- include_tasks: passwords.yml
 - include_tasks: sudo.yml
 - include_tasks: timezone.yml
+- include_tasks: users.yml

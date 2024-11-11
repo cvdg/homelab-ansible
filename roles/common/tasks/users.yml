@@ -2,14 +2,17 @@
 - name: root user password
   ansible.builtin.user:
     name: root
+    shell: /bin/bash
     password: "{{ common_admin_password }}"
 
 - name: ansible user password
   ansible.builtin.user:
     name: ansible
+    shell: /bin/bash
     password: "{{ common_admin_password }}"
 
 - name: user password
   ansible.builtin.user:
     name: "{{ common_admin_user }}"
+    shell: /bin/bash
     password: "{{ common_admin_password }}"
