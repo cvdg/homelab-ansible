@@ -1,0 +1,9 @@
+zone "griend.dev"  {
+	type master;
+	file "/etc/bind/db.griend.dev";
+};
+
+zone "168.192.in-addr.arpa" {
+	type master;
+	file "/etc/bind/db.192.168";
+};

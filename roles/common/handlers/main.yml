@@ -1,6 +1,11 @@
 ---
-- name: restart systemd-logind
-  systemd_service:
+- name: restart systemd-logind.service
+  ansible.builtin.systemd:
+    name: systemd-logind.service
     state: restarted
     daemon_reload: true
-    name: systemd-logind
+
+- name: restart systemd-resolved.service
+  ansible.builtin.systemd:
+    name: systemd-resolved.service
+    state: restarted

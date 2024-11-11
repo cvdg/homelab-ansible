@@ -1,0 +1,47 @@
+---
+- name: Install bind9
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop:
+  - bind9
+  - bind9-dnsutils
+
+- name: Copy bind9 conf.local
+  ansible.builtin.copy:
+    src: named.conf.local
+    dest: /etc/bind
+    owner: bind
+    group: bind
+    mode: 0644
+  notify:
+  - restart named
+
+- name: Copy bind9 conf.options
+  ansible.builtin.copy:
+    src: named.conf.options
+    dest: /etc/bind
+    owner: bind
+    group: bind
+    mode: 0644
+  notify:
+  - restart named
+
+- name: Copy bind9 zone griend.dev
+  ansible.builtin.copy:
+    src: db.griend.dev
+    dest: /etc/bind
+    owner: bind
+    group: bind
+    mode: 0644
+  notify:
+  - restart named
+
+- name: Copy bind9 zone 192.168
+  ansible.builtin.copy:
+    src: db.192.168
+    dest: /etc/bind
+    owner: bind
+    group: bind
+    mode: 0644
+  notify:
+  - restart named

@@ -1,0 +1,20 @@
+$TTL 24h
+$ORIGIN griend.dev.
+@	IN	SOA	dns01.griend.dev.	root.griend.dev.	(
+	4 ; serial number
+	24h	; refresh
+	2h	; update retry 
+	1000h	; expire
+	2d	; minimum
+)    
+			IN	NS		dns01.griend.dev.
+;
+; DHCP
+;
+srv01		IN 	A		192.168.2.17
+srv02		IN	A		192.168.2.22
+srv03		IN	A		192.168.2.32
+;
+; Fixed
+;
+dns01		IN	A		192.168.2.128
