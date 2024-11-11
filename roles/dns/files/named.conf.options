@@ -1,7 +1,7 @@
 acl trustedclients {
 	localhost;
 	localnets;
-	192.168.102.0/24;
+	192.168.2.0/24;
 };
 
 options {
@@ -11,10 +11,9 @@ options {
 	allow-query { trustedclients; };
     allow-recursion { trustedclients; };
 	
-	forward only;
+	// forward only;
 	forwarders {
 		192.168.2.17;		// pihole on srv00
-		108.162.195.115;	// remy.ns.cloudflare.com
-		108.162.194.202;	// crystal.ns.cloudflare.com
+		1.1.1.1;
 	};
 };

@@ -6,6 +6,12 @@
   - bind9
   - bind9-dnsutils
 
+- name: systemd named.service
+  ansible.builtin.systemd:
+    name: named.service
+    state: started
+    enabled: true
+  
 - name: Copy bind9 conf.local
   ansible.builtin.copy:
     src: named.conf.local
@@ -14,7 +20,7 @@
     group: bind
     mode: 0644
   notify:
-  - restart named
+  - rndc reload
 
 - name: Copy bind9 conf.options
   ansible.builtin.copy:
@@ -24,7 +30,7 @@
     group: bind
     mode: 0644
   notify:
-  - restart named
+  - rndc reload
 
 - name: Copy bind9 zone griend.dev
   ansible.builtin.copy:
@@ -34,7 +40,7 @@
     group: bind
     mode: 0644
   notify:
-  - restart named
+  - rndc reload
 
 - name: Copy bind9 zone 192.168
   ansible.builtin.copy:
@@ -44,4 +50,4 @@
     group: bind
     mode: 0644
   notify:
-  - restart named
+  - rndc reload
