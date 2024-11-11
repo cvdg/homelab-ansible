@@ -1,0 +1,32 @@
+---
+- name: Install required packages
+  ansible.builtin.apt:
+    name: "{{ docker_required_packages }}"
+    state: present
+ 
+- name: Add Docker GPG key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    
+    state: present
+ 
+- name: Add Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+ 
+- name: Install Docker Engine
+  ansible.builtin.apt:
+    name: "{{ docker_packages }}"
+    state: present
+ 
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+ 
+- name: Start Docker service
+  ansible.builtin.service:
+    name: docker
+    state: started

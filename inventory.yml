@@ -1,17 +1,15 @@
 ---
 all:
   hosts:
-    srv01.griend.dev:
-      ansible_host: 192.168.2.22
-    srv02.griend.dev:
-      ansible_host: 192.168.2.36
     dns01.griend.dev:
       ansible_host: 192.168.2.128
+    gitlab01.griend.dev:
+      ansible_host: 192.168.2.129
+      ansible_port: 2222
   children:
-    servers:
-      hosts:
-        srv01.griend.dev:
-        srv02.griend.dev:
     dns:
       hosts:
-        admin01.griend.dev:
+        dns01.griend.dev:
+    gitlab:
+      hosts:
+        gitlab01.griend.dev:
