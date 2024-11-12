@@ -3,13 +3,7 @@ all:
   hosts:
     dns01.griend.dev:
       ansible_host: 192.168.2.128
-    gitlab01.griend.dev:
-      ansible_host: 192.168.2.129
-      ansible_port: 2222
   children:
     dns:
       hosts:
         dns01.griend.dev:
-    gitlab:
-      hosts:
-        gitlab01.griend.dev:

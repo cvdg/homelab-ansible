@@ -20,7 +20,7 @@
     group: bind
     mode: 0644
   notify:
-  - rndc reload
+  - restart named
 
 - name: Copy bind9 conf.options
   ansible.builtin.copy:
@@ -30,7 +30,7 @@
     group: bind
     mode: 0644
   notify:
-  - rndc reload
+  - restart named
 
 - name: Copy bind9 zone griend.dev
   ansible.builtin.copy:
