@@ -1,12 +1,23 @@
 ---
 all:
   hosts:
+    srv01.griend.dev:
+      ansible_user: cees
+    srv02.griend.dev:
     dns01.griend.dev:
     dns02.griend.dev:
     dns03.griend.dev:
+    gitlab01.griend.dev:
+      ansible_port: 2222
   children:
     dns:
       hosts:
         dns01.griend.dev:
         dns02.griend.dev:
         dns03.griend.dev:
+    admin:
+      hosts:
+        srv02.griend.dev:
+    gitlab:
+      hosts:
+        gitlab01.griend.dev:

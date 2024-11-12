@@ -1,0 +1,8 @@
+---
+- include_tasks: packages.yml
+
+- include_tasks: nested.yml
+- include_tasks: network.yml
+- include_tasks: user.yml
+- include_tasks: security.yml
+- include_tasks: tuned.yml

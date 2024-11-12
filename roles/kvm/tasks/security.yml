@@ -1,0 +1,8 @@
+---
+- name: /etc/libvirt/qemu.conf
+  lineinfile:
+    path: /etc/libvirt/qemu.conf
+    regexp: "^#security_driver ="
+    line: security_driver = "none"
+  notify:
+    - restart libvirtd

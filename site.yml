@@ -1,25 +1,30 @@
 ---
 - name: Group dns 
   hosts: 
-  - all
+  - dns
   become: true
   roles:
   - common
-  tags: common
-
-- name: Group dns 
-  hosts: 
-  - dns
-  become: true
-  roles:
   - dns
   tags: dns
+
+- name: Group admin 
+  hosts: 
+  - admin
+  become: true
+  roles:
+  - common
+  - kvm
+  - terraform
+  - docker
+  tags: admin
 
 - name: Group gitlab 
   hosts: 
   - gitlab
   become: true
   roles:
+  - common
   - docker
   - gitlab
-  tags: github
+  tags: gitlab

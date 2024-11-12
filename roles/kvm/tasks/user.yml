@@ -1,0 +1,8 @@
+---
+- name: group libvirt/kvm
+  user:
+    name: "{{ kvm_admin_user }}"
+    groups:
+      - kvm
+      - libvirt
+    append: yes

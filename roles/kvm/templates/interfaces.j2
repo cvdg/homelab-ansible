@@ -1,0 +1,19 @@
+auto  lo
+iface lo inet loopback
+
+# The primary network interface
+# make sure we don't get addresses on our raw device
+auto  {{ ipv4_interface }}
+iface {{ ipv4_interface }} inet manual
+iface {{ ipv4_interface }} inet6 manual
+
+# set up bridge and give it a static ip
+auto  br0
+iface br0 inet static
+    address        {{ ipv4_address }}
+    netmask        {{ ipv4_netmask }}
+    gateway        {{ ipv4_gateway }}
+    bridge_ports   {{ ipv4_interface }}
+    bridge_stp     off
+    bridge_fd      0
+    bridge_maxwait 0

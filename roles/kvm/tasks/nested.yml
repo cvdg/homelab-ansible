@@ -1,0 +1,10 @@
+---
+- name: /etc/modprobe.d/kvm_intel.conf
+  copy:
+    src: kvm_intel.conf
+    dest: /etc/modprobe.d/kvm_intel.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - reboot

@@ -1,0 +1,8 @@
+---
+- name: /etc/modules-load.d/modules.conf
+  lineinfile:
+    path: /etc/modules-load.d/modules.conf
+    line: vhost_net
+    state: present
+  notify:
+    - reboot

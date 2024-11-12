@@ -1,0 +1,13 @@
+---
+- name: tuned active
+  command: tuned-adm active
+  register: tuned_active
+  changed_when: false
+
+- name: tuned parse profile from active
+  set_fact:
+    tuned_profile: "{{ tuned_active.stdout | regex_search('Current active profile: ([^\n]+)', '\\1') | first }}"
+
+- name: tuned profile
+  command: tuned-adm profile "{{ kvm_tuned_profile }}"
+  changed_when: tuned_profile != kvm_tuned_profile

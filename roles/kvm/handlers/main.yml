@@ -1,0 +1,8 @@
+---
+- name: reboot
+  reboot:
+
+- name: restart libvirtd
+  systemd_service:
+    state: restarted
+    name: libvirtd

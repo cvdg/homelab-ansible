@@ -1,0 +1,5 @@
+---
+- name: packages install
+  ansible.builtin.package:
+    name: "{{ item }}"
+  loop: "{{ kvm_packages }}"
