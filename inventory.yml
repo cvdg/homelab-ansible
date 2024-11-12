@@ -2,8 +2,11 @@
 all:
   hosts:
     dns01.griend.dev:
-      ansible_host: 192.168.2.128
+    dns02.griend.dev:
+    dns03.griend.dev:
   children:
     dns:
       hosts:
         dns01.griend.dev:
+        dns02.griend.dev:
+        dns03.griend.dev:

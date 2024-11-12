@@ -1,7 +1,7 @@
 $TTL 24h
 $ORIGIN griend.dev.
 @	IN	SOA	dns01.griend.dev.	root.griend.dev.	(
-	10 ; serial number
+	11 ; serial number
 	24h	; refresh
 	2h	; update retry 
 	1000h	; expire
@@ -23,5 +23,5 @@ srv02		IN	A		192.168.2.32
 ; Fixed
 ;
 dns01		IN	A		192.168.2.128
-gitlab01	IN	A		192.168.2.129
-gitlab		IN	CNAME	gitlab01
+dns02		IN	A		192.168.2.129
+dns03		IN	A		192.168.2.130

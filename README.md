@@ -18,7 +18,7 @@ VERSION="12 (bookworm)"
 Raspberry Pi reference 2024-10-22
 ```
 
-This is an old [Raspberry Pi 3b](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/), it's
+This is an old [Raspberry Pi 3b](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/), its
 age must be close to 10 years old.
 
 With `nmtui` it is configured with a fixed IP address:
