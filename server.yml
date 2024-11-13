@@ -6,4 +6,6 @@
   roles:
   - users
   - common
+  - kvm
+  - terraform
   tags: server

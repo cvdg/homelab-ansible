@@ -85,3 +85,11 @@
     user: cees
     state: present
     key: "{{ vault_cees_ssh_authorized_key }}"
+
+- name: cees groups 
+  ansible.builtin.user:
+    name: cees
+    groups: "cdrom, floppy, sudo, audio, dip, video, plugdev, users, netdev"
+    append: true
+    state: present
+  when: ansible_virtualization_role == 'host'

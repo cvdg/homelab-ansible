@@ -1,7 +1,0 @@
----
-- name: adm {{ common_admin_user}}
-  ansible.builtin.user:
-    name: "{{ common_admin_user}}"
-    groups:
-      - adm
-    append: yes

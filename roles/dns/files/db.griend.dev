@@ -1,7 +1,7 @@
 $TTL 24h
 $ORIGIN griend.dev.
 @	IN	SOA	dns01.griend.dev.	root.griend.dev.	(
-	14 ; serial number
+	15 ; serial number
 	24h	; refresh
 	2h	; update retry 
 	1000h	; expire
@@ -18,9 +18,9 @@ kpn 		IN	CNAME	router
 ;
 ; DHCP
 ;
-srv00		IN 	A		192.168.2.17
-srv01		IN	A		192.168.2.22
-srv02		IN	A		192.168.2.36
+srv01		IN 	A		192.168.2.240
+srv02		IN	A		192.168.2.241
+srv03		IN	A		192.168.2.242
 ;
 ; Fixed
 ;

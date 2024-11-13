@@ -1,8 +1,16 @@
 ---
 - name: sudo /etc/sudoers.d/adm
-  ansible.builtin.template:
-    src: adm.j2
+  ansible.builtin.copy:
+    src: sudo.adm
     dest: /etc/sudoers.d/adm
+    owner: root
+    group: root
+    mode: 0644
+
+- name: sudo /etc/sudoers.d/ansible
+  ansible.builtin.copy:
+    src: sudo.ansible
+    dest: /etc/sudoers.d/ansible
     owner: root
     group: root
     mode: 0644

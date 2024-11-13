@@ -1,0 +1,13 @@
+- hosts: all
+  become: true
+  serial: 1  # do not run parallel
+  
+  tasks:
+  - name: Reboot
+    reboot:
+      msg: "Reboot initiated by Ansible"
+      connect_timeout: 5
+      reboot_timeout: 300
+      pre_reboot_delay: 30
+      post_reboot_delay: 120
+      test_command: uptime

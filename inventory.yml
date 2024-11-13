@@ -3,20 +3,22 @@ all:
   hosts:
     srv01.griend.dev:
     srv02.griend.dev:
+    srv03.griend.dev:
     dns01.griend.dev:
-    dns02.griend.dev:
-    dns03.griend.dev:
-    gitlab01.griend.dev:
+    # dns02.griend.dev:
+    # dns03.griend.dev:
+    # gitlab01.griend.dev:
   children:
     server:
       hosts:
-        srv01.griend.dev:
+        # srv01.griend.dev:
         srv02.griend.dev:
+        srv03.griend.dev:
     dns:
       hosts:
         dns01.griend.dev:
-        dns02.griend.dev:
-        dns03.griend.dev:
+        # dns02.griend.dev:
+        # dns03.griend.dev:
     gitlab:
       hosts:
-        gitlab01.griend.dev:
+        # gitlab01.griend.dev:
