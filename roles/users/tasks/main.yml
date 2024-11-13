@@ -1,0 +1,87 @@
+---
+- name: Group root
+  ansible.builtin.group:
+    name: root
+    gid: 0
+    state: present
+
+- name: User root
+  ansible.builtin.user:
+    name: root
+    comment: "System Administrator"
+    uid: 0
+    group: 0
+    groups: "root"
+    append: true
+    password: "{{ vault_root_password }}"
+    create_home: true
+    home: /root
+    shell: /bin/bash
+    umask: 022
+    state: present
+
+- name: Root authorized_key cees@griend.dev
+  ansible.builtin.authorized_key:
+    user: root
+    state: present
+    key: "{{ vault_cees_ssh_authorized_key }}"
+
+- name: Group ansible
+  ansible.builtin.group:
+    name: ansible
+    gid: 1000
+    state: present
+
+- name: User ansible
+  ansible.builtin.user:
+    name: ansible
+    comment: "System Administrator"
+    uid: 1000
+    group: 1000
+    groups: "ansible"
+    append: true
+    password: "{{ vault_ansible_password }}"
+    create_home: true
+    home: /home/ansible
+    shell: /bin/bash
+    umask: 022
+    state: present
+
+- name: Ansible authorized_key ansible@griend.dev
+  ansible.builtin.authorized_key:
+    user: ansible
+    state: present
+    key: "{{ vault_ansible_ssh_authorized_key }}"
+
+- name: Ansible authorized_key cees@griend.dev
+  ansible.builtin.authorized_key:
+    user: ansible
+    state: present
+    key: "{{ vault_cees_ssh_authorized_key }}"
+
+- name: Group cees
+  ansible.builtin.group:
+    name: cees
+    gid: 1001
+    state: present
+
+- name: User cees
+  ansible.builtin.user:
+    name: cees
+    comment: "Cees van de Griend"
+    uid: 1001
+    group: 1001
+    groups: "cees, adm"
+    append: true
+    password: "{{ vault_cees_password }}"
+    create_home: true
+    home: /home/cees
+    shell: /bin/bash
+    umask: 022
+    state: present
+
+- name: Cees authorized_key  cees@griend.dev
+  ansible.builtin.authorized_key:
+    user: cees
+    state: present
+    key: "{{ vault_cees_ssh_authorized_key }}"

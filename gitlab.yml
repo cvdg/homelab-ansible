@@ -4,6 +4,7 @@
   - gitlab
   become: true
   roles:
+  - users
   - common
   - docker
   - gitlab
