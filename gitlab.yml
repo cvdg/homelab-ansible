@@ -1,0 +1,10 @@
+---
+- name: Group gitlab 
+  hosts: 
+  - gitlab
+  become: true
+  roles:
+  - common
+  - docker
+  - gitlab
+  tags: gitlab

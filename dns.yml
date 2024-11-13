@@ -1,0 +1,9 @@
+---
+- name: Group dns 
+  hosts: 
+  - dns
+  become: true
+  roles:
+  - common
+  - dns
+  tags: dns
