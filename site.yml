@@ -1,6 +1,6 @@
 ---
 - name: Update package cache
-  hosts: all, !srv01.griend.dev
+  hosts: all, !laptop01.griend.dev, !srv01.griend.dev
   become: true
   tags: always
   tasks:
@@ -12,7 +12,6 @@
 - name: Configure all
   hosts: all, !srv01.griend.dev
   become: true
-  tags: always
   roles:
     - users
     - common

@@ -13,7 +13,7 @@ options {
 	
 	// forward only;
 	forwarders {
-		192.168.2.17;		// pihole on srv00
+		192.168.2.240;		// pihole on srv00
 		1.1.1.1;
 	};
 };
