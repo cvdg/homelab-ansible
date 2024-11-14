@@ -1,4 +1,4 @@
 ---
-ansible_host: 192.168.2.240
+# user ansible does not exist
 ansible_user: cees
 
