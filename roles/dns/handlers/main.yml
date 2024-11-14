@@ -1,9 +1,5 @@
 ---
-- name: restart named
+- name: Restart named
   ansible.builtin.systemd:
     name: named.service
     state: restarted
-
-- name: rndc reload
-  ansible.builtin.command:
-    cmd: /usr/sbin/rndc reload

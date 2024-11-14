@@ -21,7 +21,7 @@
     state: present
 
 - name: Root authorized_key cees@griend.dev
-  ansible.builtin.authorized_key:
+  ansible.posix.authorized_key:
     user: root
     state: present
     key: '{{ vault_cees_ssh_authorized_key }}'
@@ -48,16 +48,10 @@
     state: present
 
 - name: Ansible authorized_key ansible@griend.dev
-  ansible.builtin.authorized_key:
+  ansible.posix.authorized_key:
     user: ansible
     state: present
     key: '{{ vault_ansible_ssh_authorized_key }}'
-
-- name: Ansible authorized_key cees@griend.dev
-  ansible.builtin.authorized_key:
-    user: ansible
-    state: present
-    key: '{{ vault_cees_ssh_authorized_key }}'
 
 - name: Group cees
   ansible.builtin.group:
@@ -81,7 +75,7 @@
     state: present
 
 - name: Cees authorized_key  cees@griend.dev
-  ansible.builtin.authorized_key:
+  ansible.posix.authorized_key:
     user: cees
     state: present
     key: '{{ vault_cees_ssh_authorized_key }}'

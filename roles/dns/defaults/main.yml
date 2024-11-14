@@ -1,0 +1,3 @@
+dns_packages:
+  - bind9
+  - bind9-dnsutils
