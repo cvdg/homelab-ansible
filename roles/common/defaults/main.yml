@@ -1,8 +1,8 @@
 ---
-common_locale: "en_US.UTF-8"
-common_timezone: "Europe/Amsterdam"
+common_locale: 'en_US.UTF-8'
+common_timezone: 'Europe/Amsterdam'
 common_packages:
-  - git 
+  - git
   - gnupg2
   - sudo
   - tmux
