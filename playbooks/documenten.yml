@@ -1,0 +1,10 @@
+---
+- name: Documenten rsync naar srv01
+  hosts: srv01.griend.dev
+  tasks:
+
+    - name: Synchronize Documenten met rsync
+      ansible.builtin.synchronize:
+        src: /Users/cees/Documenten/
+        dest: /mnt/pool0/Home/cees/Documenten/
+        mode: 'push'

@@ -1,0 +1,10 @@
+---
+#
+# Macbook Pro 16" 2016
+#
+# cpu:      intel i9 2.30 GHz
+# memory:   16GiB
+# harddisk: 1TiB
+#
+ansible_host: 192.168.2.6
+ansible_user: cees
