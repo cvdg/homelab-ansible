@@ -1,0 +1,44 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name: '{{ media_packages }}'
+    state: present
+
+- name: Create media mount point
+  ansible.builtin.file:
+    path: /mnt/media
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  ignore_errors: true
+
+- name: Copy mnt-media.mount
+  ansible.builtin.copy:
+    src: mnt-media.mount
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy mnt-media.automount
+  ansible.builtin.copy:
+    src: mnt-media.automount
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Start mnt-media.mount
+  ansible.builtin.systemd:
+    name: mnt-media.mount
+    state: stopped
+    enabled: true
+    daemon-reload: true
+
+- name: Start mnt-media.automount
+  ansible.builtin.systemd:
+    name: mnt-media.automount
+    state: started
+    enabled: true
+    daemon-reload: true

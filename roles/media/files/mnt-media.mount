@@ -1,0 +1,12 @@
+[Unit]
+Description = nfs mount for media files
+
+[Mount]
+What=srv01.griend.dev:/mnt/pool0/Media
+Where=/mnt/media
+Type=nfs
+Options=defaults,ro
+TimeoutSec=30
+
+[Install]
+WantedBy=multi-user.target

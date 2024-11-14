@@ -1,8 +1,7 @@
 ---
 - name: Update package cache
-  hosts: all, !laptop01.griend.dev, !srv01.griend.dev
+  hosts: all
   become: true
-  tags: always
   tasks:
     - name: Update package cache
       ansible.builtin.apt:
@@ -10,7 +9,7 @@
       changed_when: false
 
 - name: Configure all
-  hosts: all, !srv01.griend.dev
+  hosts: all
   become: true
   roles:
     - users
@@ -22,6 +21,14 @@
   tags: dns
   roles:
     - dns
+
+- name: Configure media
+  hosts: media
+  become: true
+  tags: media
+  roles:
+    - media
+    - docker
 
 - name: Configure servers
   hosts: servers, !srv01.griend.dev
