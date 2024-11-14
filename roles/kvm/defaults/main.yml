@@ -1,14 +1,14 @@
 ---
-kvm_admin_user: "cees"
+kvm_admin_user: 'cees'
 
 kvm_packages:
   - bridge-utils
   - genisoimage
   - guestfs-tools
   - libosinfo-bin
-  - libvirt-daemon-system 
+  - libvirt-daemon-system
   - ovmf
-  - qemu-system-x86 
+  - qemu-system-x86
   - qemu-utils
   - swtpm
   - tuned
@@ -16,4 +16,4 @@ kvm_packages:
   - virt-viewer
   - virtinst
 
-kvm_tuned_profile: "virtual-host"
+kvm_tuned_profile: 'virtual-host'

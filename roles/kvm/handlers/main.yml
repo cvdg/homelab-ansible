@@ -1,8 +1,8 @@
 ---
-- name: reboot
-  reboot:
+- name: Reboot
+  ansible.builtin.reboot:
 
-- name: restart libvirtd
-  systemd_service:
+- name: Restart libvirtd
+  ansible.builtin.service:
     state: restarted
     name: libvirtd

@@ -1,8 +1,51 @@
 ---
-- include_tasks: packages.yml
+- name: Install packages
+  ansible.builtin.package:
+    name: '{{ kvm_packages }}'
 
-- include_tasks: nested.yml
-- include_tasks: network.yml
-- include_tasks: user.yml
-- include_tasks: security.yml
-- include_tasks: tuned.yml
+- name: Create /etc/modprobe.d/kvm_intel.conf
+  ansible.builtin.copy:
+    src: kvm_intel.conf
+    dest: /etc/modprobe.d/kvm_intel.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reboot
+
+- name: Edit /etc/modules-load.d/modules.conf
+  ansible.builtin.lineinfile:
+    path: /etc/modules-load.d/modules.conf
+    line: vhost_net
+    state: present
+  notify:
+    - Reboot
+
+- name: Edit /etc/libvirt/qemu.conf
+  ansible.builtin.lineinfile:
+    path: /etc/libvirt/qemu.conf
+    regexp: '^#security_driver ='
+    line: security_driver = "none"
+  notify:
+    - Restart libvirtd
+
+- name: Activate tuned
+  ansible.builtin.command: tuned-adm active
+  register: tuned_active
+  changed_when: false
+
+- name: Parse tuned profile from active
+  ansible.builtin.set_fact:
+    tuned_profile: "{{ tuned_active.stdout | regex_search('Current active profile: ([^\n]+)', '\\1') | first }}"
+
+- name: Set tuned profile
+  ansible.builtin.command: tuned-adm profile "{{ kvm_tuned_profile }}"
+  changed_when: tuned_profile != kvm_tuned_profile
+
+- name: Add user to group libvirt and kvm
+  ansible.builtin.user:
+    name: '{{ kvm_admin_user }}'
+    groups:
+      - kvm
+      - libvirt
+    append: true
