@@ -1,7 +1,73 @@
 ---
-- include_tasks: packages.yml
+- name: packages install
+  ansible.builtin.package:
+    name: "{{ common_packages }}"
+    state: latest
 
-- include_tasks: console.yml
-- include_tasks: locale.yml
-- include_tasks: sudo.yml
-- include_tasks: timezone.yml
+
+
+- name: /etc/default/console-setup CODESET
+  ansible.builtin.lineinfile:
+    path: /etc/default/console-setup
+    regexp: '^CODESET='
+    line: 'CODESET="Lat15"'
+  when: ansible_virtualization_role == 'host'
+  
+- name: /etc/default/console-setup FONTFACE
+  ansible.builtin.lineinfile:
+    path: /etc/default/console-setup
+    regexp: '^FONTFACE='
+    line: 'FONTFACE="Terminus"'
+  when: ansible_virtualization_role == 'host'
+
+- name: /etc/default/console-setup FONTSIZE
+  ansible.builtin.lineinfile:
+    path: /etc/default/console-setup
+    regexp: '^FONTSIZE='
+    line: 'FONTSIZE="16x32"'
+  when: ansible_virtualization_role == 'host'
+
+
+
+- name: locale generate
+  ansible.builtin.locale_gen:
+    name: "{{ common_locale }}"
+    state: present
+
+- name: locale get current
+  ansible.builtin.command: localectl status
+  register: locale_status
+  changed_when: false
+
+- name: parse 'LANG' from current locale
+  ansible.builtin.set_fact:
+    locale_lang: "{{ locale_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
+
+- name: locale set default
+  ansible.builtin.command: localectl set-locale "{{ common_locale }}"
+  changed_when: locale_lang != common_locale
+
+
+
+- name: sudo /etc/sudoers.d/adm
+  ansible.builtin.copy:
+    src: sudo.adm
+    dest: /etc/sudoers.d/adm
+    owner: root
+    group: root
+    mode: 0644
+
+- name: sudo /etc/sudoers.d/ansible
+  ansible.builtin.copy:
+    src: sudo.ansible
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    group: root
+    mode: 0644
+
+
+
+- name: timezone set
+  community.general.timezone:
+    name: "{{ common_timezone }}"
+    hwclock: UTC

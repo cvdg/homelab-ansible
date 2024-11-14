@@ -1,5 +1,0 @@
----
-- name: packages install
-  ansible.builtin.package:
-    name: "{{ item }}"
-  loop: "{{ common_packages }}"
