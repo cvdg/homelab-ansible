@@ -51,3 +51,27 @@
     sysctl_set: true
     state: present
     reload: true
+
+- name: Create traefik directory
+  ansible.builtin.file:
+    path: /srv/admin/portainer
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create traefik/data directory
+  ansible.builtin.file:
+    path: /srv/admin/portainer/data
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create portainer/compose.yml
+  ansible.builtin.template:
+    src: portainer/compose.yml.j2
+    dest: /srv/admin/portainer/compose.yml
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    mode: '0644'
