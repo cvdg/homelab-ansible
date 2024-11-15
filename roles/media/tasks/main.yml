@@ -4,6 +4,11 @@
     name: '{{ media_packages }}'
     state: present
 
+- name: Check if media mount point exists
+  ansible.builtin.stat:
+    path: /mnt/media
+  register: media
+
 - name: Create media mount point
   ansible.builtin.file:
     path: /mnt/media
@@ -11,7 +16,7 @@
     owner: root
     group: root
     mode: '0755'
-  ignore_errors: true
+  when: not media.stat.isdir is defined or not media.stat.isdir
 
 - name: Copy mnt-media.mount
   ansible.builtin.copy:
@@ -28,13 +33,6 @@
     owner: root
     group: root
     mode: '0644'
-
-- name: Start mnt-media.mount
-  ansible.builtin.systemd:
-    name: mnt-media.mount
-    state: stopped
-    enabled: true
-    daemon-reload: true
 
 - name: Start mnt-media.automount
   ansible.builtin.systemd:

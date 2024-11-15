@@ -28,7 +28,6 @@
   tags: media
   roles:
     - media
-    - docker
 
 - name: Configure servers
   hosts: servers, !srv01.griend.dev
