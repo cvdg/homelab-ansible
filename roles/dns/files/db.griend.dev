@@ -1,7 +1,7 @@
 $TTL 24h
 $ORIGIN griend.dev.
 @	IN	SOA	dns01.griend.dev.	root.griend.dev.	(
-	16 ; serial number
+	17 ; serial number
 	24h	; refresh
 	2h	; update retry 
 	1000h	; expire
@@ -20,6 +20,7 @@ dns01		IN	A		192.168.2.128
 dns02		IN	A		192.168.2.129
 dns03		IN	A		192.168.2.130
 media01		IN	A		192.168.2.131
+admin01		IN	A		192.168.2.132
 ;
 ; Servers
 ;

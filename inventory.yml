@@ -9,6 +9,7 @@ all:
     dns02.griend.dev:
     dns03.griend.dev:
     media01.griend.dev:
+    admin01.griend.dev:
   children:
     laptops:
       hosts:
@@ -18,6 +19,9 @@ all:
         # srv01.griend.dev:
         srv02.griend.dev:
         srv03.griend.dev:
+    admin:
+      hosts:
+        admin01.griend.dev:
     dns:
       hosts:
         dns01.griend.dev:

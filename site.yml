@@ -15,6 +15,13 @@
     - users
     - common
 
+- name: Configure admin
+  hosts: admin
+  become: true
+  tags: admin
+  roles:
+    - admin
+
 - name: Configure dns
   hosts: dns
   become: true
@@ -30,7 +37,7 @@
     - media
 
 - name: Configure servers
-  hosts: servers, !srv01.griend.dev
+  hosts: servers
   become: true
   tags: servers
   roles:
