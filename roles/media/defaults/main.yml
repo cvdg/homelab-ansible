@@ -1,3 +1,8 @@
 ---
 media_packages:
   - nfs-common
+  - podman
+  - podman-compose
+
+media_user: cees
+media_group: cees

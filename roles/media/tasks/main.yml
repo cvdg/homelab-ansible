@@ -40,3 +40,35 @@
     state: started
     enabled: true
     daemon-reload: true
+
+- name: Create deploy directory
+  ansible.builtin.file:
+    path: /srv/media
+    owner: '{{ media_user }}'
+    group: '{{ media_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create jellyfin directory
+  ansible.builtin.file:
+    path: /srv/media/jellyfin
+    owner: '{{ media_user }}'
+    group: '{{ media_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create jellyfin/config directory
+  ansible.builtin.file:
+    path: /srv/media/jellyfin/config
+    owner: '{{ media_user }}'
+    group: '{{ media_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create jellyfin/compose.tml
+  ansible.builtin.template:
+    src: compose.yml.j2
+    dest: /srv/media/jellyfin/compose.yml
+    owner: '{{ media_user }}'
+    group: '{{ media_group }}'
+    mode: '0644'
