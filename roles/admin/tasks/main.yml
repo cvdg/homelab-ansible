@@ -1,0 +1,53 @@
+---
+- name: Install required packages
+  ansible.builtin.apt:
+    name: '{{ admin_packages }}'
+    state: present
+
+- name: Create deploy directory
+  ansible.builtin.file:
+    path: /srv/admin
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create traefik directory
+  ansible.builtin.file:
+    path: /srv/admin/traefik
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create traefik/letsencrypt directory
+  ansible.builtin.file:
+    path: /srv/admin/traefik/letsencrypt
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    state: directory
+    mode: '0700'
+
+- name: Create traefik/compose.yml
+  ansible.builtin.template:
+    src: traefik/compose.yml.j2
+    dest: /srv/admin/traefik/compose.yml
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    mode: '0644'
+
+- name: Create traefik/.env
+  ansible.builtin.template:
+    src: traefik/env.j2
+    dest: /srv/admin/traefik/.env
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    mode: '0600'
+
+- name: Allow access to port 80 and 443
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_unprivileged_port_start
+    value: '80'
+    sysctl_set: true
+    state: present
+    reload: true

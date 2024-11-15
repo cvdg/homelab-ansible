@@ -1,0 +1,9 @@
+---
+admin_packages:
+  - podman
+  - podman-compose
+
+admin_user: cees
+admin_group: cees
+
+admin_traefik_verison: 'v3.1.7'

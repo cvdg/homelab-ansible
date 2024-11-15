@@ -1,0 +1,48 @@
+services:
+  traefik:
+    image: docker.io/library/traefik:{{ admin_traefik_verison }}
+    container_name: traefik
+    command:
+      - --log.level=DEBUG
+      # Tell Traefik to discover containers using the Docker API
+      - --providers.docker=true
+      - --providers.docker.network=proxy
+      - --providers.docker.exposedbydefault=false
+      # Enable the Trafik dashboard
+      - --api.dashboard=true
+      # Set up LetsEncrypt
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
+      - --certificatesresolvers.letsencrypt.acme.email=cees.van.de.griend@griend.dev
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      # Set up an insecure listener that redirects all traffic to TLS
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      # Set up the TLS configuration for our websecure listener
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certResolver=letsencrypt
+      - --entrypoints.websecure.http.tls.domains[0].main=griend.dev
+      - --entrypoints.websecure.http.tls.domains[0].sans=*.griend.dev
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /run/user/1001/podman/podman.sock:/var/run/docker.sock:z
+      - ./letsencrypt:/letsencrypt
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - 'traefik.http.routers.traefik.rule=Host(`{{ inventory_hostname }}`)'
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik.service=api@internal"
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
