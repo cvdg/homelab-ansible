@@ -1,0 +1,11 @@
+[Unit]
+Description=HTTP redirect to 8080
+Requires=network.target
+Requires=http.socket
+After=network.target
+
+[Service]
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd 127.0.0.1:8080
+
+[Install]
+WantedBy=multi-user.target

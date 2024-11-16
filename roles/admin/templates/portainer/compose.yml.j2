@@ -4,6 +4,8 @@ services:
     container_name: portainer
     command: -H unix:///var/run/docker.sock
     restart: always
+    networks:
+      proxy
     volumes:
       - /run/user/1001/podman/podman.sock:/var/run/docker.sock:z
       - ./data:/data
@@ -22,3 +24,7 @@ services:
       - "traefik.http.services.edge.loadbalancer.server.port=8000"
       - "traefik.http.routers.edge.service=edge"
       - "traefik.http.routers.edge.tls.certresolver=letsencrypt"
+
+networks:
+  proxy:
+    external: true

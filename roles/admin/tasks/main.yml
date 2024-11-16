@@ -3,18 +3,106 @@
   ansible.builtin.apt:
     name: '{{ admin_packages }}'
     state: present
+#
+# Thanks: https://azouhr.wordpress.com/2018/07/03/port-forwarding-with-systemd/
+#
+- name: Create http.socket
+  ansible.builtin.template:
+    src: systemd-proxyd/http.socket.j2
+    dest: /etc/systemd/system/http.socket
+    owner: root
+    group: root
+    mode: '0644'
 
-- name: Create deploy directory
-  ansible.builtin.file:
-    path: /srv/admin
-    owner: '{{ admin_user }}'
-    group: '{{ admin_group }}'
-    state: directory
-    mode: '0755'
+- name: Create http.service
+  ansible.builtin.template:
+    src: systemd-proxyd/http.service.j2
+    dest: /etc/systemd/system/http.service
+    owner: root
+    group: root
+    mode: '0644'
 
+- name: Create https.socket
+  ansible.builtin.template:
+    src: systemd-proxyd/https.socket.j2
+    dest: /etc/systemd/system/https.socket
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Create https.service
+  ansible.builtin.template:
+    src: systemd-proxyd/https.service.j2
+    dest: /etc/systemd/system/https.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Start http.socket
+  ansible.builtin.systemd:
+    name: http.service
+    state: started
+    enabled: true
+    daemon-reload: true
+
+- name: Start http.service
+  ansible.builtin.systemd:
+    name: http.service
+    state: started
+    enabled: true
+    daemon-reload: true
+
+- name: Start https.socket
+  ansible.builtin.systemd:
+    name: https.service
+    state: started
+    enabled: true
+    daemon-reload: true
+
+- name: Start https.service
+  ansible.builtin.systemd:
+    name: https.service
+    state: started
+    enabled: true
+    daemon-reload: true
+
+# - name: Get info admin_user
+#   ansible.builtin.getent:
+#     database: passwd
+#     key: '{{ admin_user }}'
+#
+# - name: Getent
+#   ansible.builtin.debug:
+#     var: ansible_facts.getent_passwd
+#
+# - name: UID
+#   ansible.builtin.debug:
+#     var: '/run/user/{{ ansible_facts.getent_passwd[admin_user][1] }}'
+#
+#
+# Create podman.socket for admin_user
+#
+# FIXME This does not work ;-(
+#
+# - name: User podman.socket
+#   ansible.builtin.systemd:
+#     name: podman.socket
+#     scope: user
+#     state: started
+#     enabled: true
+#     daemon_reload: true
+#   become: true
+#   become_user: "{{ admin_user }}"
+#   become_method: machinectl
+#   environment:
+#     XDG_RUNTIME_DIR: '/run/user/{{ ansible_facts.getent_passwd[admin_user][1] }}'
+
+#
+# traefik
+#
 - name: Create traefik directory
   ansible.builtin.file:
-    path: /srv/admin/traefik
+    path: /opt/traefik
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     state: directory
@@ -22,7 +110,7 @@
 
 - name: Create traefik/letsencrypt directory
   ansible.builtin.file:
-    path: /srv/admin/traefik/letsencrypt
+    path: /opt/traefik/letsencrypt
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     state: directory
@@ -31,7 +119,7 @@
 - name: Create traefik/compose.yml
   ansible.builtin.template:
     src: traefik/compose.yml.j2
-    dest: /srv/admin/traefik/compose.yml
+    dest: /opt/traefik/compose.yml
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     mode: '0644'
@@ -39,30 +127,25 @@
 - name: Create traefik/.env
   ansible.builtin.template:
     src: traefik/env.j2
-    dest: /srv/admin/traefik/.env
+    dest: /opt/traefik/.env
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     mode: '0600'
 
-- name: Allow access to port 80 and 443
-  ansible.posix.sysctl:
-    name: net.ipv4.ip_unprivileged_port_start
-    value: '80'
-    sysctl_set: true
-    state: present
-    reload: true
-
-- name: Create traefik directory
+#
+# portainer
+#
+- name: Create portainer directory
   ansible.builtin.file:
-    path: /srv/admin/portainer
+    path: /opt/portainer
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     state: directory
     mode: '0755'
 
-- name: Create traefik/data directory
+- name: Create portainer/data directory
   ansible.builtin.file:
-    path: /srv/admin/portainer/data
+    path: /opt/portainer/data
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     state: directory
@@ -71,7 +154,7 @@
 - name: Create portainer/compose.yml
   ansible.builtin.template:
     src: portainer/compose.yml.j2
-    dest: /srv/admin/portainer/compose.yml
+    dest: /opt/portainer/compose.yml
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     mode: '0644'

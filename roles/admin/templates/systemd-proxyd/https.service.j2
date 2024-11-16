@@ -1,0 +1,11 @@
+[Unit]
+Description=HTTPS redirect to port 8443
+Requires=network.target
+Requires=https.socket
+After=network.target
+
+[Service]
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd 127.0.0.1:8443
+
+[Install]
+WantedBy=multi-user.target
