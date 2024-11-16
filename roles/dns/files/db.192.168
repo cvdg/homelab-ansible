@@ -1,7 +1,7 @@
 $TTL 24h
 $ORIGIN	168.192.in-addr.arpa.
 @	IN	SOA	dns01.griend.dev.	root.griend.dev. (
-	17 ; serial number
+	19 ; serial number
 	24h	; refresh
 	2h	; update retry 
 	1000h	; expire
@@ -20,6 +20,10 @@ $ORIGIN	2.168.192.in-addr.arpa.
 130	IN	PTR	dns03.griend.dev.
 131	IN	PTR	media01.griend.dev.
 132	IN	PTR	admin01.griend.dev.
+133	IN	PTR	dev01.griend.dev.
+134	IN	PTR	dev02.griend.dev.
+135	IN	PTR	dev03.griend.dev.
+136	IN	PTR	dev04.griend.dev.
 ;
 ; Servers
 ;

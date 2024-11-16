@@ -8,25 +8,30 @@
         update_cache: true
       changed_when: false
 
-- name: Configure all
-  hosts: all
-  become: true
-  roles:
-    - users
-    - common
-
 - name: Configure admin
   hosts: admin
   become: true
   tags: admin
   roles:
+    - users
+    - common
     - admin
+
+- name: Configure dev
+  hosts: dev
+  become: true
+  tags: dev
+  roles:
+    - users
+    - common
 
 - name: Configure dns
   hosts: dns
   become: true
   tags: dns
   roles:
+    - users
+    - common
     - dns
 
 - name: Configure media
@@ -34,6 +39,8 @@
   become: true
   tags: media
   roles:
+    - users
+    - common
     - media
 
 - name: Configure servers
@@ -41,5 +48,7 @@
   become: true
   tags: servers
   roles:
+    - users
+    - common
     - kvm
     - terraform
