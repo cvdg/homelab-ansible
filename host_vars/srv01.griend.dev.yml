@@ -1,4 +1,3 @@
 ---
 # user ansible does not exist
 ansible_user: cees
-
