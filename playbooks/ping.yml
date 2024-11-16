@@ -1,0 +1,10 @@
+---
+- name: Ping all hosts
+  hosts: all
+  ignore_unreachable: true
+  gather_facts: false
+  
+  tasks:
+
+    - name: Ping
+      ansible.builtin.ping:
