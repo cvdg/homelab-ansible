@@ -1,7 +1,7 @@
 $TTL 24h
 $ORIGIN griend.dev.
 @	IN	SOA	dns01.griend.dev.	root.griend.dev.	(
-20 ; serial number
+	21 ; serial number
 	24h	; refresh
 	2h	; update retry 
 	1000h	; expire
@@ -18,7 +18,9 @@ dns02		IN	A		192.168.2.129
 dns03		IN	A		192.168.2.130
 media01		IN	A		192.168.2.131
 admin01		IN	A		192.168.2.132
+traefik		IN	CNAME	admin01
 portainer	IN	CNAME	admin01
+edge		IN	CNAME	admin01
 dev01		IN	A		192.168.2.133
 dev02		IN	A		192.168.2.134
 dev03		IN	A		192.168.2.135
@@ -35,10 +37,3 @@ srv03		IN	A		192.168.2.242
 ;
 router		IN	A 		192.168.2.254
 kpn 		IN	CNAME	router
-;
-; Sub-domain admin01.griend.dev
-;
-$ORIGIN admin01.griend.dev.
-;
-traefik		IN	CNAME	admin01.griend.dev.
-portainer	IN	CNAME	admin01.griend.dev.

@@ -143,10 +143,10 @@
     state: directory
     mode: '0755'
 
-- name: Create portainer/compose.yml
+- name: Create portainer/run.sh
   ansible.builtin.template:
-    src: portainer/compose.yml.j2
-    dest: /opt/portainer/compose.yml
+    src: portainer/run.sh.j2
+    dest: /opt/portainer/run.sh
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
-    mode: '0644'
+    mode: '0755'
