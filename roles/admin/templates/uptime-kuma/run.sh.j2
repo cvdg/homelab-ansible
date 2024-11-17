@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+# docker pull louislam/uptime-kuma:nightly2-rootless
+# docker run -d --restart=always -p 3001:3001 \
+#   -v uptime-kuma:/app/data --name uptime-kuma \
+#   louislam/uptime-kuma:1
+
+podman run -d \
+  --name=uptime-kuma \
+  --volume /opt/uptime-kuma/data:/data:z \
+  --publish 3001:3001 \
+  --network proxy \
+  --label traefik.enable=true \
+  --label traefik.http.routers.uptime-kuma.rule='Host(`kuma01.griend.dev`)' \
+  --label traefik.http.routers.uptime-kuma.entrypoints=websecure \
+  --label traefik.http.services.uptime-kuma-service.loadbalancer.server.port=3001 \
+  --label traefik.http.routers.uptime-kuma.service=uptime-kuma-service \
+  --label traefik.http.routers.uptime-kuma.tls.certresolver=letsencrypt \
+  'docker.io/louislam/uptime-kuma:{{ admin_uptime_kuma_version }}'

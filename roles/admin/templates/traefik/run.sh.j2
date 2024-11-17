@@ -20,8 +20,8 @@ podman run -d \
   --label traefik.http.routers.traefik.entrypoints=websecure \
   --label traefik.http.routers.traefik.tls.certresolver=letsencrypt \
   --label traefik.http.routers.traefik.service=api@internal \
-  'docker.io/library/traefik:3.2.0' \
-  --log.level=DEBUG \
+  'docker.io/library/traefik:{{ admin_traefik_version }}' \
+  --log.level=INFO \
   --api.dashboard=true \
   --api.insecure=true \
   --providers.docker=true \

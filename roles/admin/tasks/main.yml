@@ -150,3 +150,30 @@
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
     mode: '0755'
+
+#
+# uptime-kuma
+#
+- name: Create uptime-kuma directory
+  ansible.builtin.file:
+    path: /opt/uptime-kuma
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create uptime-kuma/data directory
+  ansible.builtin.file:
+    path: /opt/uptime-kuma/data
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    state: directory
+    mode: '0755'
+
+- name: Create uptime-kuma/run.sh
+  ansible.builtin.template:
+    src: uptime-kuma/run.sh.j2
+    dest: /opt/uptime-kuma/run.sh
+    owner: '{{ admin_user }}'
+    group: '{{ admin_group }}'
+    mode: '0755'

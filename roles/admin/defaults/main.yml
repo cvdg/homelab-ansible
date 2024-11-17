@@ -7,6 +7,8 @@ admin_packages:
 admin_user: cees
 admin_group: cees
 
-admin_traefik_verison: '3.2.0'
+admin_traefik_version: '3.2.0'
 
 admin_portainer_version: 'lts'
+
+admin_uptime_kuma_version: 'nightly2-rootless'
