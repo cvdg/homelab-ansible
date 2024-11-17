@@ -12,11 +12,11 @@ podman run -d \
   --publish 8443:443 \
   --network proxy \
   --label traefik.enable=true \
-  --label traefik.http.routers.http-catchall.rule=hostregexp'(`.*`)' \
+  --label traefik.http.routers.http-catchall.rule=hostregexp'(`.*\.griend\.dev`)' \
   --label traefik.http.routers.http-catchall.entrypoints=web \
   --label traefik.http.routers.http-catchall.middlewares=redirect-to-https \
   --label traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https \
-  --label traefik.http.routers.traefik.rule=Host'(`traefik.{{ ansible_hostname }}`)' \
+  --label traefik.http.routers.traefik.rule=Host'(`{{ ansible_hostname }}`)' \
   --label traefik.http.routers.traefik.entrypoints=websecure \
   --label traefik.http.routers.traefik.tls.certresolver=letsencrypt \
   --label traefik.http.routers.traefik.service=api@internal \

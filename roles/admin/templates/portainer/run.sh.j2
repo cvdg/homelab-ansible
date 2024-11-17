@@ -10,12 +10,12 @@ podman run -d \
   --publish 9000:900 \
   --network proxy \
   --label traefik.enable=true \
-  --label traefik.http.routers.frontend.rule='Host(`portainer.griend.dev`)' \
+  --label traefik.http.routers.frontend.rule='Host(`portainer01.griend.dev`)' \
   --label traefik.http.routers.frontend.entrypoints=websecure \
   --label traefik.http.services.frontend.loadbalancer.server.port=9000 \
   --label traefik.http.routers.frontend.service=frontend \
   --label traefik.http.routers.frontend.tls.certresolver=letsencrypt \
-  --label traefik.http.routers.edge.rule='Host(`edge.griend.dev`)' \
+  --label traefik.http.routers.edge.rule='Host(`edge01.griend.dev`)' \
   --label traefik.http.routers.edge.entrypoints=websecure \
   --label traefik.http.services.edge.loadbalancer.server.port=8000 \
   --label traefik.http.routers.edge.service=edge \
