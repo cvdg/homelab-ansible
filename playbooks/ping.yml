@@ -3,8 +3,7 @@
   hosts: all
   ignore_unreachable: true
   gather_facts: false
-  
-  tasks:
 
+  tasks:
     - name: Ping
       ansible.builtin.ping:
