@@ -7,4 +7,4 @@ admin_packages:
 admin_user: cees
 admin_group: cees
 
-admin_traefik_verison: 'v3.1.7'
+admin_traefik_verison: '3.2.0'

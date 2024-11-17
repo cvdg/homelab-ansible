@@ -116,21 +116,13 @@
     state: directory
     mode: '0700'
 
-- name: Create traefik/compose.yml
+- name: Create traefik/run.sh
   ansible.builtin.template:
-    src: traefik/compose.yml.j2
+    src: traefik/run.sh.j2
     dest: /opt/traefik/compose.yml
     owner: '{{ admin_user }}'
     group: '{{ admin_group }}'
-    mode: '0644'
-
-- name: Create traefik/.env
-  ansible.builtin.template:
-    src: traefik/env.j2
-    dest: /opt/traefik/.env
-    owner: '{{ admin_user }}'
-    group: '{{ admin_group }}'
-    mode: '0600'
+    mode: '0755'
 
 #
 # portainer
